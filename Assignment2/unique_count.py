@@ -1,0 +1,41 @@
+#!/user/bin/python
+
+import csv
+from collections import  Counter
+
+#------------------------------------------------------------------------------------------
+def csv_writer(my_dict, out_file):
+	#write to a file the processed data
+	wfile = open(out_file, 'wb')
+	writer = csv.writer(wfile)
+	writer.writerows(my_dict.items())
+	wfile.close()
+
+
+
+#-----------------------------------------------------------------------------------------
+if __name__ == "__main__":
+	in_file= 'OPTPF.csv'
+	out_file='frequency.csv'
+	#read from file
+	rfile=open(in_file,'rb')
+	reader= csv.reader(rfile,delimiter='|')
+
+	myList=[]
+	for row in reader:
+		#put row[0] to a list
+		myList.append(row[0])
+	
+	#print myList
+	#get the number of occurence of each element
+	print Counter(myList)
+	csv_writer(Counter(myList),out_file)
+	rfile.close()
+#--------------------------------------------------------------------------------------------  
+ 	
+
+#myset=set(myList)this removes any duplicates
+
+#to write a dictionary key:value in each row to a file=> writer.writerows(my_dict.items())
+#to write a dictionary keys in one row =>  w.writerow(somedict.keys())
+#to write a dictionary values in one row => w.writerow(somedict.values())
